@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   doSignInWithEmailAndPassword,
@@ -7,14 +7,19 @@ import {
 } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 function Login() {
   const { userLoggedIn } = useAuth();
-
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  if (userLoggedIn) {
+    redirect("/Home");
+  }
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
@@ -32,10 +37,11 @@ function Login() {
       });
     }
   };
+
   return (
     <div className="flex flex-col justify-center items-center lg:w-full lg:h-full h-screen  bg-[#1D1D1D] text-white ">
       <h1 className=" font-extrabold text-4xl">Login to TBD</h1>
-      <div className="border-0 border-white">
+      <div className="border-0 h-96 border-white">
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}
@@ -55,11 +61,15 @@ function Login() {
             type="password"
             placeholder="Password"
             name="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Link href="" className="text-right text-sm text-[#575757]">
-            Forgot your password?
+          <Link
+            href="/Signup"
+            className="underline text-right text-sm text-[#575757]"
+          >
+            Don't have an account?
           </Link>
           <button className="text-black font-bold py-3 rounded-lg bg-white">
             Log in
