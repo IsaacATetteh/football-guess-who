@@ -16,7 +16,7 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className="flex items-center justify-between py-5 px-5 md:px-10 shadow-lg bg-[#272626]">
+    <nav className="flex z-2 fixed w-full items-center justify-between py-5 px-5 md:px-10 shadow-lg bg-[#272626]">
       <h1 className="text-white font-extrabold text-md md:text-xl">
         Football Guess Who
       </h1>

@@ -39,9 +39,9 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center lg:w-full lg:h-full h-screen  bg-[#1D1D1D] text-white ">
+    <div className="flex flex-col justify-center items-center lg:w-full h-full bg-[#1D1D1D] text-white ">
       <h1 className=" font-extrabold text-4xl">Login to TBD</h1>
-      <div className="border-0 h-96 border-white">
+      <div className="h-96 border-white">
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}
