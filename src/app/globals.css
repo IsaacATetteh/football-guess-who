@@ -30,3 +30,21 @@ input {
     text-wrap: balance;
   }
 }
+
+/* For WebKit (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Transparent background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Color of the scrollbar */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* For Firefox */
+scrollbar-width: thin;
+scrollbar-color: rgba(0, 0, 0, 0.3) transparent;

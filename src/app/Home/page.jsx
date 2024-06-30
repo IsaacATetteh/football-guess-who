@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/authContext";
 import { redirect, useRouter } from "next/navigation";
 import Game from "../Game/page";
 const Home = () => {
-  const NEXT_PUBLIC_GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
   const [league, setLeague] = useState("");
   const [clubIds, setClubIds] = useState([]);
   const [showGame, setShowGame] = useState(false); // State to control rendering of Game component
@@ -45,7 +45,7 @@ const Home = () => {
         competition_id: competitionId,
       },
       headers: {
-        "x-rapidapi-key": NEXT_PUBLIC_GOOGLE_API_KEY,
+        "x-rapidapi-key": NEXT_PUBLIC_RAPID_API_KEY,
         "x-rapidapi-host": "transfermarkt-db.p.rapidapi.com",
       },
     };
@@ -67,7 +67,7 @@ const Home = () => {
         },
         headers: {
           "x-rapidapi-key":
-            NEXT_PUBLIC_GOOGLE_API_KEY,
+            NEXT_PUBLIC_RAPID_API_KEY,
           "x-rapidapi-host": "transfermarkt-db.p.rapidapi.com",
         },
       };
