@@ -149,7 +149,7 @@ const Home = () => {
               <option value="Premier League">Premier League</option>
             </select>
             <button
-              className="text-black w-1/3 mt-10 mx-auto font-bold py-3 rounded-lg bg-white"
+              className="text-black w-1/3 mt-10 mx-auto font-bold py-3 rounded-lg bg-white  shadow-sm shadow-white"
               type="submit"
             >
               Play

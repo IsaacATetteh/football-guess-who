@@ -9,6 +9,7 @@ import { FaSearch } from "react-icons/fa";
 const Game = ({ playerDetails, transferHistory, setShowGame }) => {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [score, setScore] = useState(0);
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
@@ -51,6 +52,7 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
   const handlePlayerClick = (player) => {
     if (player.id === playerDetails.id) {
       console.log("Correct", player);
+      setScore(score + 50);
     } else {
       console.log("Incorrect");
       setShowGame(false);
@@ -67,7 +69,7 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
             onClick={() => setShowGame(false)}
           />
           <p className="font-semibold">
-            Score: <span className="text-yellow-300 font-light">200</span>
+            Score: <span className="text-yellow-300 font-light">{score}</span>
           </p>
         </div>
         <div className="flex flex-col mb-4 border-[#575757] justify-center  items-center border rounded-lg py-4 md:py-10 w-64 md:w-96 max-h-[450px] md:max-h-[600px]   overflow-y-auto">
