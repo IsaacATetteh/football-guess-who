@@ -21,6 +21,10 @@ body, html {
  width: 100%
 }
 
+::placeholder {
+  font-weight: 700;
+}
+
 input { 
   padding: 10px; 
 }
