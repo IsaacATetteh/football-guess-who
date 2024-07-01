@@ -29,9 +29,10 @@ const Home = () => {
   const handlePlayButtonClick = async (event) => {
     event.preventDefault();
 
-    const leagueToCompetitionIdMap = {
+    /* const leagueToCompetitionIdMap = {
       "Serie A": "IT1",
       "Premier League": "GB1",
+      // Add more mappings as needed
     };
 
     const competitionId = leagueToCompetitionIdMap[league];
@@ -48,30 +49,86 @@ const Home = () => {
 
       const players = await getClubSquad(randomClubId);
       const randomPlayer = players[Math.floor(Math.random() * players.length)];
+      */
+    const randomPlayer = {
+      id: "28003",
+      firstName: "Lionel",
+      lastName: "Messi",
+      position: "Foward",
+      age: 37,
+      shirtNumber: 10,
+      nationality: "Argentina",
+      playerImage:
+        "https://img.a.transfermarkt.technology/portrait/medium/28003-1710080339.jpg?lm=1",
+      club: "Inter Miami",
+    };
 
-      console.log(randomPlayer);
-      setPlayerDetails({
-        name: randomPlayer.firstName + " " + randomPlayer.lastName,
-        position: randomPlayer.position,
-        age: randomPlayer.age,
-        shirtNumber: randomPlayer.shirtNumber,
-        nationality: randomPlayer.nationality,
-        image: randomPlayer.playerImage,
-        team: randomPlayer.club,
-      });
-      const transfers = await getPlayerTransfers(randomPlayer.id);
-      setTransferHistory(transfers.transferHistory);
-      console.log(transferHistory);
-      setShowGame(true);
-    } catch (error) {
+    console.log(randomPlayer);
+    setPlayerDetails({
+      id: randomPlayer.id,
+      name: randomPlayer.firstName + " " + randomPlayer.lastName,
+      position: randomPlayer.position,
+      age: randomPlayer.age,
+      shirtNumber: randomPlayer.shirtNumber,
+      nationality: randomPlayer.nationality,
+      image: randomPlayer.playerImage,
+      team: randomPlayer.club,
+    });
+    // const transfers = await getPlayerTransfers(randomPlayer.id);
+    //(transfers.transferHistory);
+    const transfers = {
+      share: {
+        title: "Lionel Messi - Transferhistorie",
+        url: "https://www.transfermarkt.de/lionel-messi/transfers/spieler/28003",
+        description:
+          "Hier werden alle Transfers von Lionel Messi angezeigt. Neben dem Zeitpunkt eines Transfers, den beteiligten Vereinen und der Ablösesumme, wird auch der Marktwert zum Zeitpunkt des Transfers angegeben.",
+      },
+      futureTransfer: [],
+      transferHistory: [
+        {
+          playerID: "28003",
+          oldClubID: "583",
+          oldClubName: "Paris SG",
+          oldClubImage:
+            "https://tmssl.akamaized.net/images/wappen/medium/583.png?lm=1522312728",
+          newClubID: "69261",
+          newClubName: "Inter Miami",
+          newClubImage:
+            "https://tmssl.akamaized.net/images/wappen/medium/69261.png?lm=1573561237",
+          transferFeeValue: "ablösefrei",
+          transferFeeCurrency: "",
+          transferFeeNumeral: "",
+          playerName: "Lionel Messi",
+          playerImage:
+            "https://img.a.transfermarkt.technology/portrait/medium/28003-1710080339.jpg?lm=1",
+          countryID: "9",
+          countryImage:
+            "https://tmssl.akamaized.net/images/flagge/verysmall/9.png?lm=1520611569",
+          loan: "",
+          date: "15.07.2023",
+          season: "23/24",
+          newClubCountryName: "Vereinigte Staaten",
+          newClubCountryImage:
+            "https://tmssl.akamaized.net/images/flagge/verysmall/184.png?lm=1520611569",
+        },
+      ],
+    };
+    setTransferHistory(transfers.transferHistory);
+    console.log(transferHistory);
+    setShowGame(true);
+    /*} catch (error) {
       console.error(error);
-    }
+    }*/
   };
 
   return (
     <div className="h-full w-full bg-[#1D1D1D] text-white">
       {showGame ? (
-        <Game playerDetails={playerDetails} transferHistory={transferHistory} />
+        <Game
+          playerDetails={playerDetails}
+          transferHistory={transferHistory}
+          setShowGame={setShowGame}
+        />
       ) : (
         <div className="flex justify-center items-center pt-20 h-full">
           <form
