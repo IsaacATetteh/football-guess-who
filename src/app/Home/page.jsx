@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/authContext";
 import { redirect, useRouter } from "next/navigation";
+import { getUserData } from "../firebase/auth";
 import Game from "../Game/page";
 import {
   getMostValuableTeams,
@@ -11,11 +12,12 @@ import {
 
 const Home = () => {
   const [league, setLeague] = useState("");
+  const [userData, setUserData] = useState(null);
   const [showGame, setShowGame] = useState(false); // State to control rendering of Game component
   const [playerDetails, setPlayerDetails] = useState(null); // State to store player details
   const [competitionId, setCompetitionId] = useState(""); // State to store competition ID
   const [transferHistory, setTransferHistory] = useState(null);
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn, currentUser } = useAuth();
   const router = useRouter();
 
   if (!userLoggedIn) {
@@ -24,6 +26,29 @@ const Home = () => {
 
   const handleLeagueChange = (event) => {
     setLeague(event.target.value);
+  };
+
+  useEffect(() => {
+    getUserData(currentUser.uid)
+      .then((userData) => {
+        setUserData(userData);
+        console.log(userData.username);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }),
+    [];
+
+  const handleButtonClick = async (event) => {
+    getUserData(currentUser.uid)
+      .then((userData) => {
+        setUserData(userData);
+        console.log(userData.username);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
   };
 
   const handlePlayButtonClick = async (event) => {
@@ -132,9 +157,16 @@ const Home = () => {
           competitionId={competitionId}
         />
       ) : (
-        <div className="flex justify-center items-center pt-20 h-full">
+        <div className="flex flex-col justify-center items-center h-full">
+          {userData ? (
+            <div className="mb-20">
+              <h1 className="text-4xl">Welcome, {userData.username}</h1>
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
           <form
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 "
             onSubmit={handlePlayButtonClick}
           >
             <label htmlFor="difficulty" className="font-semibold text-lg">

@@ -1,5 +1,7 @@
 "use client";
 import { auth, db } from "./firebase";
+import { getDoc } from "firebase/firestore";
+
 import {
   collection,
   query,
@@ -53,6 +55,17 @@ async function saveUserData(userId, username, email) {
     throw error;
   }
 }
+
+export const getUserData = async (uid) => {
+  const userRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    throw new Error("User document not found");
+  }
+};
 
 export const doSignInWithEmailAndPassword = async (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
