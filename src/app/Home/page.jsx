@@ -14,6 +14,7 @@ const Home = () => {
   const [clubIds, setClubIds] = useState([]);
   const [showGame, setShowGame] = useState(false); // State to control rendering of Game component
   const [playerDetails, setPlayerDetails] = useState(null); // State to store player details
+  const [competitionId, setCompetitionId] = useState(""); // State to store competition ID
   const [transferHistory, setTransferHistory] = useState(null);
   const { userLoggedIn } = useAuth();
   const router = useRouter();
@@ -35,6 +36,7 @@ const Home = () => {
     };
 
     const competitionId = leagueToCompetitionIdMap[league];
+    setCompetitionId(competitionId);
 
     if (!competitionId) {
       console.error("Invalid league selected");
@@ -127,6 +129,9 @@ const Home = () => {
           playerDetails={playerDetails}
           transferHistory={transferHistory}
           setShowGame={setShowGame}
+          setPlayerDetails={setPlayerDetails}
+          setTransferHistory={setTransferHistory}
+          competitionId={competitionId}
         />
       ) : (
         <div className="flex justify-center items-center pt-20 h-full">

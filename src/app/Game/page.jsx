@@ -4,13 +4,20 @@ import { FaHome } from "react-icons/fa";
 import axios from "axios";
 import Modal from "../components/Modal";
 import { FaSearch } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import {
+  getMostValuableTeams,
+  getClubSquad,
+  getPlayerTransfers,
+} from "../api/transfermarkt";
+
 const Game = ({
   playerDetails,
   transferHistory,
   setShowGame,
   setPlayerDetails,
   setTransferHistory,
+  competitionId,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,11 +68,40 @@ const Game = ({
     if (player.id === playerDetails.id) {
       correct();
       setScore(score + 50);
+      fetchRandomPlayerAndTransfers(competitionId);
     } else {
       incorrect();
       setShowGame(false);
     }
     setShowModal(false);
+  };
+
+  const fetchRandomPlayerAndTransfers = async (competitionId) => {
+    try {
+      const teams = await getMostValuableTeams(competitionId);
+      const ids = teams.map((team) => team.id);
+      const randomClubId = ids[Math.floor(Math.random() * ids.length)];
+
+      const players = await getClubSquad(randomClubId);
+      const randomPlayer = players[Math.floor(Math.random() * players.length)];
+      console.log(randomPlayer);
+      setPlayerDetails({
+        id: randomPlayer.id,
+        name: randomPlayer.firstName + " " + randomPlayer.lastName,
+        position: randomPlayer.position,
+        age: randomPlayer.age,
+        shirtNumber: randomPlayer.shirtNumber,
+        nationality: randomPlayer.nationality,
+        image: randomPlayer.playerImage,
+        team: randomPlayer.club,
+      });
+      const transfers = await getPlayerTransfers(randomPlayer.id);
+      transfers.transferHistory;
+      setTransferHistory(transfers.transferHistory);
+      console.log(transferHistory);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -80,7 +116,7 @@ const Game = ({
             Score: <span className="text-yellow-300 font-light">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] justify-center  items-center border rounded-lg  w-64 md:w-96 max-h-[450px] md:max-h-[600px] overflow-y-scroll ">
+        <div className="flex flex-col mb-4 border-[#575757] justify-center  items-center border rounded-lg min-h-32 w-64 md:w-96 max-h-[450px] md:max-h-[600px] overflow-y-scroll ">
           <ul className=" h-full py-5">
             {transferHistory.map((transfer, index) => (
               <li key={index} className="mb-5 ">
