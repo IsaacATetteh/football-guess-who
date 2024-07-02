@@ -69,7 +69,7 @@ function Login() {
             href="/Signup"
             className="underline text-right text-sm text-[#575757]"
           >
-            Don't have an account?
+            {`Don't have an account?`}
           </Link>
           <button className="text-black font-bold py-3 rounded-lg bg-white">
             Log in
