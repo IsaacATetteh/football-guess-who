@@ -2,6 +2,8 @@
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./contexts/authContext";
+import ToastProvider from "./components/ToastProvider";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={montserrat.className}>
         <AuthProvider>
-          <Navbar />
-          {children}
+          <ToastProvider>{children}</ToastProvider>
         </AuthProvider>
       </body>
     </html>

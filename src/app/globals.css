@@ -49,6 +49,17 @@ input {
   border-radius: 10px; /* Rounded corners */
 }
 
-/* For Firefox */
-scrollbar-width: thin;
-scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+.correct-card {
+  position: fixed;
+  bottom: -100px; /* Start position (hidden) */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.5s ease-in-out;
+}
+
+.correct-card.show {
+  bottom: 20px; /* End position (visible) */
+}
+
+
+

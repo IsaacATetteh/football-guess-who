@@ -1,12 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
-
 import axios from "axios";
 import Modal from "../components/Modal";
 import { FaSearch } from "react-icons/fa";
-
-const Game = ({ playerDetails, transferHistory, setShowGame }) => {
+import { ToastContainer, toast } from "react-toastify";
+const Game = ({
+  playerDetails,
+  transferHistory,
+  setShowGame,
+  setPlayerDetails,
+  setTransferHistory,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [score, setScore] = useState(0);
@@ -15,6 +20,9 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
 
   const { id, name, position, age, shirtNumber, nationality, image, team } =
     playerDetails;
+
+  const correct = () => toast.success("Correct");
+  const incorrect = () => toast.error("Incorrect");
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -51,10 +59,10 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
 
   const handlePlayerClick = (player) => {
     if (player.id === playerDetails.id) {
-      console.log("Correct", player);
+      correct();
       setScore(score + 50);
     } else {
-      console.log("Incorrect");
+      incorrect();
       setShowGame(false);
     }
     setShowModal(false);
@@ -72,8 +80,8 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
             Score: <span className="text-yellow-300 font-light">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] justify-center  items-center border rounded-lg py-4 md:py-10 w-64 md:w-96 max-h-[450px] md:max-h-[600px]   overflow-y-auto">
-          <ul>
+        <div className="flex flex-col mb-4 border-[#575757] justify-center  items-center border rounded-lg  w-64 md:w-96 max-h-[450px] md:max-h-[600px] overflow-y-scroll ">
+          <ul className=" h-full py-5">
             {transferHistory.map((transfer, index) => (
               <li key={index} className="mb-5 ">
                 <div className="flex items-center mb-1 gap-2">
@@ -111,11 +119,11 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
       </div>
       <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
         {searchResults.length > 0 ? (
-          <ul>
+          <ul className="">
             {searchResults.map((player) => (
               <li key={player.id} className="">
                 <div
-                  className="flex items-center  h-24 hover:bg-[#1D1D1D] py-10"
+                  className="flex items-center h-24 hover:bg-[#1D1D1D] py-10"
                   onClick={() => handlePlayerClick(player)}
                 >
                   <img
@@ -124,7 +132,7 @@ const Game = ({ playerDetails, transferHistory, setShowGame }) => {
                     className="w-20 h-20 object-cover px-1 mr-2"
                   />
                   <div className="flex items-center gap-2">
-                    <p>{`${player.firstName} ${player.lastName}`}</p>
+                    <strong>{`${player.firstName} ${player.lastName}`}</strong>
                     <img
                       src={player.nationImage}
                       alt="Nationality"
