@@ -1,5 +1,13 @@
 "use client";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -7,9 +15,44 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-export const doCreateUserWithEmailAndPassword = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+const doesUsernameExist = async (username) => {
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("username", "==", username));
+  const querySnapshot = await getDocs(q);
+  return !querySnapshot.empty;
 };
+
+export const doCreateUserWithEmailAndPassword = async (
+  email,
+  password,
+  username
+) => {
+  const usernameTaken = await doesUsernameExist(username);
+  if (usernameTaken) {
+    throw new Error("Username already taken");
+  }
+
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  await saveUserData(user.uid, username, email);
+  return user;
+};
+
+async function saveUserData(userId, username, email) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    await setDoc(userDocRef, {
+      username: username,
+      email: email,
+    });
+  } catch (error) {
+    throw error;
+  }
+}
 
 export const doSignInWithEmailAndPassword = async (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);

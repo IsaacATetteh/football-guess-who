@@ -11,7 +11,6 @@ import {
 
 const Home = () => {
   const [league, setLeague] = useState("");
-  const [clubIds, setClubIds] = useState([]);
   const [showGame, setShowGame] = useState(false); // State to control rendering of Game component
   const [playerDetails, setPlayerDetails] = useState(null); // State to store player details
   const [competitionId, setCompetitionId] = useState(""); // State to store competition ID
@@ -32,7 +31,6 @@ const Home = () => {
     const leagueToCompetitionIdMap = {
       "Serie A": "IT1",
       "Premier League": "GB1",
-      // Add more mappings as needed
     };
 
     const competitionId = leagueToCompetitionIdMap[league];
@@ -139,6 +137,16 @@ const Home = () => {
             className="flex flex-col gap-4"
             onSubmit={handlePlayButtonClick}
           >
+            <label htmlFor="difficulty" className="font-semibold text-lg">
+              Select A Difficulty: (coming soon!)
+            </label>
+            <select
+              className="bg-[#1D1D1D] border border-[#727272] rounded-lg py-3 w-80 px-2"
+              id="difficulty"
+              onChange={handleLeagueChange}
+            >
+              <option value="">Regular</option>
+            </select>
             <label htmlFor="league" className="font-semibold text-lg">
               Select League:
             </label>

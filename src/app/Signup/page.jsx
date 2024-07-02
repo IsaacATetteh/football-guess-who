@@ -9,6 +9,7 @@ const Signup = () => {
   const { userLoggedIn } = useAuth();
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +17,7 @@ const Signup = () => {
     e.preventDefault();
     if (!isSigningUp) {
       setIsSigningUp(true);
-      await doCreateUserWithEmailAndPassword(email, password);
+      await doCreateUserWithEmailAndPassword(email, password, username);
     }
   };
 
@@ -28,6 +29,15 @@ const Signup = () => {
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}
         >
+          <input
+            className="py-3 w-80 bg-[#2B2B2B] rounded-lg"
+            type="text"
+            placeholder="Username"
+            name="username"
+            required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <input
             className="py-3 w-80 bg-[#2B2B2B] rounded-lg"
             type="email"
