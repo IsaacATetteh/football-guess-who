@@ -5,10 +5,9 @@ import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const Signup = () => {
-  const router = useRouter();
   const { userLoggedIn } = useAuth();
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +16,9 @@ const Signup = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  if (userLoggedIn) {
+    redirect("/Home");
+  }
   const success = () => toast.success("Account created successfully!");
 
   const onSubmit = async (e) => {
@@ -27,6 +29,7 @@ const Signup = () => {
       try {
         await doCreateUserWithEmailAndPassword(email, password, username);
         success();
+        router.push("/Login");
       } catch (error) {
         console.error("Error during user creation:", error.message);
         setErrorMessage(error.message);
@@ -43,7 +46,6 @@ const Signup = () => {
     <div className="flex min-h-[calc(100vh-80px)] h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
       <div className="flex h-[28rem] items-center flex-col">
         <h1 className=" font-extrabold text-4xl">Sign up to TBD</h1>
-
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}

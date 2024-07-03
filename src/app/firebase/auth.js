@@ -1,7 +1,8 @@
 "use client";
 import { auth, db } from "./firebase";
 import { getDoc } from "firebase/firestore";
-
+import errorHandler from "./errorHandler";
+import { FirebaseError } from "firebase/app";
 import {
   collection,
   query,
@@ -29,19 +30,27 @@ export const doCreateUserWithEmailAndPassword = async (
   password,
   username
 ) => {
-  const usernameTaken = await doesUsernameExist(username);
-  if (usernameTaken) {
-    throw new Error("Username already taken");
-  }
+  try {
+    const usernameTaken = await doesUsernameExist(username);
+    if (usernameTaken) {
+      errorHandler("username-already-taken");
+      throw new Error("Username already taken");
+    }
 
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  const user = userCredential.user;
-  await saveUserData(user.uid, username, email);
-  return user;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    await saveUserData(user.uid, username, email);
+    return user;
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      errorHandler(error);
+    }
+    throw error;
+  }
 };
 
 async function saveUserData(userId, username, email) {
