@@ -52,6 +52,7 @@ const Home = () => {
   };
 
   const handlePlayButtonClick = async (event) => {
+    event.preventDefault();
     const leagueToCompetitionIdMap = {
       "Serie A": "IT1",
       "Premier League": "GB1",
@@ -164,7 +165,10 @@ const Home = () => {
           ) : (
             <p>Loading...</p>
           )}
-          <form className="flex flex-col gap-4 ">
+          <form
+            className="flex flex-col gap-4 "
+            onSubmit={handlePlayButtonClick}
+          >
             <label htmlFor="difficulty" className="font-semibold text-lg">
               Select A Difficulty: (coming soon!)
             </label>
@@ -191,7 +195,6 @@ const Home = () => {
             <button
               className="text-black w-1/3 mt-10 mx-auto font-bold py-3 rounded-lg bg-white  shadow-sm shadow-white"
               type="submit"
-              onClick={handlePlayButtonClick}
             >
               Play
             </button>
