@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={montserrat.className}>
+        <Navbar />
         <AuthProvider>
-          <Navbar />
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>
       </body>

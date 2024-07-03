@@ -4,8 +4,11 @@ import Link from "next/link";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
+  const router = useRouter();
   const { userLoggedIn } = useAuth();
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -13,18 +16,34 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const success = () => toast.success("Account created successfully!");
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningUp) {
       setIsSigningUp(true);
-      await doCreateUserWithEmailAndPassword(email, password, username);
+
+      try {
+        await doCreateUserWithEmailAndPassword(email, password, username);
+        success();
+      } catch (error) {
+        console.error("Error during user creation:", error.message);
+        setErrorMessage(error.message);
+        const errors = () => toast.error({ errorMessage });
+
+        errors();
+      } finally {
+        setIsSigningUp(false);
+      }
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center lg:w-full lg:h-full h-screen  bg-[#1D1D1D] text-white ">
-      <h1 className=" font-extrabold text-4xl">Sign up to TBD</h1>
-      <div className="border-0 h-96 border-white">
+    <div className="flex min-h-[calc(100vh-80px)] h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
+      <div className="flex h-[28rem] items-center flex-col">
+        <h1 className=" font-extrabold text-4xl">Sign up to TBD</h1>
+
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}
@@ -72,7 +91,7 @@ const Signup = () => {
           >
             Already have an account?
           </Link>
-          <button className="text-black font-bold py-3 rounded-lg bg-white">
+          <button className="text-black font-bold py-3 rounded-lg transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white">
             Sign up
           </button>
         </form>

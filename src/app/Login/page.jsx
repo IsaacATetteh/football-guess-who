@@ -39,9 +39,10 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center lg:w-full h-full bg-[#1D1D1D] text-white ">
-      <h1 className=" font-extrabold text-4xl">Login to TBD</h1>
-      <div className="h-96 border-white">
+    <div className="flex min-h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
+      <div className="flex h-[28rem] items-center flex-col">
+        <h1 className=" font-extrabold text-4xl">Login to TBD</h1>
+
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}
@@ -75,14 +76,14 @@ function Login() {
             Log in
           </button>
         </form>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <div class="flex items-center my-4">
             <div class="flex-grow border-t border-[#575757]"></div>
             <span class="px-4 text-gray-600">or continue with</span>
             <div class="flex-grow border-t border-[#575757]"></div>
           </div>
           <button
-            className="flex border-2 py-3 text-white rounded-lg border-[#2B2B2B] justify-center"
+            className="flex py-3 border-2 text-white rounded-lg border-[#2B2B2B] justify-center"
             disabled={isSigningIn}
             onClick={(e) => {
               onGoogleSignIn(e);

@@ -22,6 +22,7 @@ const Game = ({
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [score, setScore] = useState(0);
+
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
@@ -105,8 +106,8 @@ const Game = ({
   };
 
   return (
-    <div className="h-full w-full bg-[#1D1D1D] text-white pt-20">
-      <div className="flex w-full h-full pt-10 items-center flex-col">
+    <div className="flex  justify-center  lg:w-full min-h-[calc(100vh-80px)]  bg-[#1D1D1D] text-white ">
+      <div className="flex items-center flex-col h-72 pt-4  ">
         <div className="flex justify-between px-5 items-center border border-[#ffd350]  bg-transparent rounded-lg py-3 w-64 md:w-96 mb-4">
           <FaHome
             className="w-6 h-6 cursor-pointer"

@@ -3,10 +3,8 @@ import React from "react";
 import { MdLeaderboard } from "react-icons/md";
 import Link from "next/link"; // Import Link from next/link
 import { doSignOut } from "../firebase/auth";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const router = useRouter();
   const handleSignOut = async () => {
     try {
       await doSignOut();
@@ -15,7 +13,7 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className="flex z-2 fixed w-full items-center justify-between py-5 px-5 md:px-10 shadow-lg bg-[#272626]">
+    <nav className="flex z-2000  h-20 w-full items-center justify-between py-5 px-5 md:px-10 shadow-lg bg-[#272626]">
       <h1 className="text-white font-extrabold text-md md:text-xl">
         Football Guess Who
       </h1>
