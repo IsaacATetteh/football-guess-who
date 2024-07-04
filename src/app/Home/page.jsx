@@ -150,10 +150,10 @@ const Home = () => {
           competitionId={competitionId}
         />
       ) : (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mb-2">
           <img className="h-72 lg:h-80" src="/logo.png"></img>
           <form
-            className="flex flex-col gap-4 mt-3 lg:mt-8"
+            className="flex flex-col gap-4 mt-3 lg:mt-6"
             onSubmit={handlePlayButtonClick}
           >
             <label htmlFor="difficulty" className="font-semibold text-lg">
@@ -184,7 +184,7 @@ const Home = () => {
               <option value="Champions League">Champions League</option>
             </select>
             <button
-              className="text-black w-1/3 mt-3 md:mt-10 mx-auto font-bold py-3 rounded-lg shadow-sm shadow-white transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white"
+              className="text-black w-1/3 mt-3 md:mt-7 mx-auto font-bold py-3 rounded-lg shadow-sm shadow-white transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white"
               type="submit"
               disabled={playButtonClicked}
             >
