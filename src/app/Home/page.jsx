@@ -53,7 +53,18 @@ const Home = () => {
       const randomClubId = ids[Math.floor(Math.random() * ids.length)];
 
       const players = await getClubSquad(randomClubId);
-      const randomPlayer = players[Math.floor(Math.random() * players.length)];
+      const filteredPlayers = players.filter(
+        (player) => player.marketValue && player.marketValue.value > 15000000
+      );
+
+      if (filteredPlayers.length === 0) {
+        console.log("No players found, please try again.");
+        setPlayButtonClicked(false);
+        return;
+      }
+
+      const randomPlayer =
+        filteredPlayers[Math.floor(Math.random() * filteredPlayers.length)];
 
       // const randomPlayer = {
       //   id: "28003",

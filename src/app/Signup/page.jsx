@@ -31,11 +31,7 @@ const Signup = () => {
         success();
         router.push("/Login");
       } catch (error) {
-        console.error("Error during user creation:", error.message);
-        setErrorMessage(error.message);
-        const errors = () => toast.error({ errorMessage });
-
-        errors();
+        throw error;
       } finally {
         setIsSigningUp(false);
       }

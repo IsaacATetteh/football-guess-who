@@ -25,6 +25,10 @@ const errorHandler = (error) => {
       errorMessage = "The Firebase ID token has been revoked.";
       toast.error(errorMessage);
       break;
+    case "auth/invalid-credential":
+      errorMessage = "Invalid email or password";
+      toast.error(errorMessage);
+      break;
     case "auth/insufficient-permission":
       errorMessage =
         "The credential used has insufficient permission to access the requested resource. Refer to Set up a Firebase project for documentation on how to generate a credential with appropriate permissions and use it to authenticate the Admin SDKs.";
@@ -50,11 +54,6 @@ const errorHandler = (error) => {
       break;
     case "auth/invalid-creation-time":
       errorMessage = "The creation time must be a valid UTC date string.";
-      toast.error(errorMessage);
-      break;
-    case "auth/invalid-credential":
-      errorMessage =
-        "The credential used to authenticate the Admin SDKs cannot be used to perform the desired action.";
       toast.error(errorMessage);
       break;
     case "auth/invalid-disabled-field":

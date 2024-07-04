@@ -11,7 +11,7 @@ const Modal = ({ isVisible, onClose, children }) => {
       id="wrapper"
       onClick={handleClose}
     >
-      <div className="flex flex-col bg-[#313131] w-[500px] h-[650px] overflow-y-scroll rounded-md">
+      <div className="flex flex-col bg-[#313131] w-[500px] h-[650px] overflow-y-scroll rounded-lg">
         <button
           className="text-xl fixed place-self-end mr-2"
           onClick={() => onClose()}

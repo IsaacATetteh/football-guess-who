@@ -9,6 +9,8 @@ import { useAuth } from "../contexts/authContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
+import errorHandler from "../firebase/errorHandler";
 
 function Login() {
   const { userLoggedIn } = useAuth();
@@ -24,7 +26,12 @@ function Login() {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
+      try {
+        await doSignInWithEmailAndPassword(email, password);
+      } catch (error) {
+        setIsSigningIn(false);
+        errorHandler(error);
+      }
     }
   };
 

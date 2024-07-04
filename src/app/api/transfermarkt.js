@@ -44,6 +44,7 @@ const getClubSquad = async (clubId) => {
 
   try {
     const response = await axios.request(options);
+    console.log(response);
     return response.data.data;
   } catch (error) {
     console.error(error);
