@@ -20,16 +20,19 @@ const Signup = () => {
     redirect("/Home");
   }
   const success = () => toast.success("Account created successfully!");
+  const info = () => toast.info("Passwords must match");
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmedPassword) {
+      info();
+      return;
+    }
     if (!isSigningUp) {
       setIsSigningUp(true);
-
       try {
         await doCreateUserWithEmailAndPassword(email, password, username);
         success();
-        router.push("/Login");
       } catch (error) {
         throw error;
       } finally {
@@ -41,7 +44,7 @@ const Signup = () => {
   return (
     <div className="flex min-h-[calc(100vh-80px)] h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
       <div className="flex h-[28rem] items-center flex-col">
-        <h1 className=" font-extrabold text-4xl">Sign up to TBD</h1>
+        <h1 className=" font-extrabold text-5xl">Sign Up</h1>
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}

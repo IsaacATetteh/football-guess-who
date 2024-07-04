@@ -26,7 +26,7 @@ const errorHandler = (error) => {
       toast.error(errorMessage);
       break;
     case "auth/invalid-credential":
-      errorMessage = "Invalid email or password";
+      errorMessage = "Incorrect email or password";
       toast.error(errorMessage);
       break;
     case "auth/insufficient-permission":

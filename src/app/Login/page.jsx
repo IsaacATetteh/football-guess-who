@@ -24,14 +24,11 @@ function Login() {
   }
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithEmailAndPassword(email, password);
-      } catch (error) {
-        setIsSigningIn(false);
-        errorHandler(error);
-      }
+    try {
+      await doSignInWithEmailAndPassword(email, password);
+    } catch (error) {
+      setIsSigningIn(false);
+      errorHandler(error);
     }
   };
 
@@ -48,7 +45,7 @@ function Login() {
   return (
     <div className="flex min-h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
       <div className="flex h-[28rem] items-center flex-col">
-        <h1 className=" font-extrabold text-4xl">Login to TBD</h1>
+        <h1 className=" font-extrabold text-5xl">Login</h1>
 
         <form
           className="flex flex-col gap-5 text-white py-10"
@@ -79,7 +76,7 @@ function Login() {
           >
             {`Don't have an account?`}
           </Link>
-          <button className="text-black font-bold py-3 rounded-lg bg-white">
+          <button className="text-black font-bold py-3 rounded-lg transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white">
             Log in
           </button>
         </form>
