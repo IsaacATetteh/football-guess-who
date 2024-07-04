@@ -7,18 +7,15 @@ import {
 } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
-import { toast } from "react-toastify";
 import errorHandler from "../firebase/errorHandler";
 
 function Login() {
   const { userLoggedIn } = useAuth();
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
   if (userLoggedIn) {
     redirect("/Home");
   }
@@ -46,7 +43,6 @@ function Login() {
     <div className="flex min-h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
       <div className="flex h-[28rem] items-center flex-col">
         <h1 className=" font-extrabold text-5xl">Login</h1>
-
         <form
           className="flex flex-col gap-5 text-white py-10"
           onSubmit={onSubmit}

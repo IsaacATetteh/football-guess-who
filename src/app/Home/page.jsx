@@ -150,17 +150,17 @@ const Home = () => {
           competitionId={competitionId}
         />
       ) : (
-        <div className="flex flex-col items-center mb-10">
-          <img className="h-[16rem] md:h-80" src="/logo.png"></img>
+        <div className="flex flex-col items-center">
+          <img className="h-72 lg:h-80" src="/logo.png"></img>
           <form
-            className="flex flex-col gap-4 mt-3 md:mt-10"
+            className="flex flex-col gap-4 mt-3 lg:mt-8"
             onSubmit={handlePlayButtonClick}
           >
             <label htmlFor="difficulty" className="font-semibold text-lg">
               Select A Difficulty: (coming soon!)
             </label>
             <select
-              className="bg-[#1D1D1D] border border-[#727272] rounded-lg min-h-11 py-3 w-80 px-2"
+              className="bg-[#1D1D1D] border border-[#727272] rounded-lg min-h-10 py-3 w-80 px-2"
               id="difficulty"
             >
               <option value="">Regular</option>
@@ -169,7 +169,7 @@ const Home = () => {
               Select League:
             </label>
             <select
-              className="bg-[#1D1D1D] border border-[#727272] rounded-lg min-h-11 py-3 w-80 px-2"
+              className="bg-[#1D1D1D] border border-[#727272] rounded-lg min-h-10 py-3 w-80 px-2"
               id="league"
               value={league}
               onChange={handleLeagueChange}
