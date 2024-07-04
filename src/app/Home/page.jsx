@@ -137,9 +137,10 @@ const Home = () => {
           competitionId={competitionId}
         />
       ) : (
-        <div>
+        <div className="flex flex-col items-center">
+          <img className="h-[16rem] md:h-80" src="/logo.png"></img>
           <form
-            className="flex flex-col gap-4 mt-10"
+            className="flex flex-col gap-4 mt-3 md:mt-10"
             onSubmit={handlePlayButtonClick}
           >
             <label htmlFor="difficulty" className="font-semibold text-lg">
@@ -168,7 +169,7 @@ const Home = () => {
               <option value="Premier League">Premier League</option>
             </select>
             <button
-              className="text-black w-1/3 mt-10 mx-auto font-bold py-3 rounded-lg shadow-sm shadow-white transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white"
+              className="text-black w-1/3 mt-3 md:mt-10 mx-auto font-bold py-3 rounded-lg shadow-sm shadow-white transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white"
               type="submit"
               disabled={playButtonClicked}
             >
