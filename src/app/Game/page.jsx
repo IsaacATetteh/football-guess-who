@@ -117,8 +117,8 @@ const Game = ({
             Score: <span className="text-yellow-300 font-light">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] px-2 justify-center items-center border rounded-lg min-h-32 w-72 md:w-96 max-h-[650px] md:max-h-[600px] overflow-y-scroll ">
-          <ul className=" h-full mt-8 md:mt-0 py-5 ">
+        <div className="flex flex-col mb-4 border-[#575757] px-2 border items-center rounded-lg min-h-32 w-72 md:w-96 max-h-[420px] md:max-h-[600px] overflow-y-scroll ">
+          <ul className="py-5">
             {transferHistory.map((transfer, index) => (
               <li key={index} className="mb-5 ">
                 <div className="flex items-center mb-1 gap-2">

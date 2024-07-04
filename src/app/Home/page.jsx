@@ -40,6 +40,8 @@ const Home = () => {
     const leagueToCompetitionIdMap = {
       "Serie A": "IT1",
       "Premier League": "GB1",
+      "Champions League": "CL",
+      "La Liga": "ES1",
     };
 
     const competitionId = leagueToCompetitionIdMap[league];
@@ -167,6 +169,8 @@ const Home = () => {
 
               <option value="Serie A">Serie A</option>
               <option value="Premier League">Premier League</option>
+              <option value="La liga">La Liga</option>
+              <option value="Champions League">Champions League</option>
             </select>
             <button
               className="text-black w-1/3 mt-3 md:mt-10 mx-auto font-bold py-3 rounded-lg shadow-sm shadow-white transform transition duration-75 ease-in-out active:shadow-none active:translate-y-1 bg-[#E9E3DA] hover:bg-white"
