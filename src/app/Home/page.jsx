@@ -150,7 +150,7 @@ const Home = () => {
           competitionId={competitionId}
         />
       ) : (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mb-10">
           <img className="h-[16rem] md:h-80" src="/logo.png"></img>
           <form
             className="flex flex-col gap-4 mt-3 md:mt-10"
