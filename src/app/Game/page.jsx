@@ -49,7 +49,6 @@ const Game = ({
       };
 
       try {
-        console.log("API call initiated");
         const response = await axios.request(options);
         console.log("API response:", response.data);
         const players = response.data.data.players;
@@ -106,18 +105,18 @@ const Game = ({
   };
 
   return (
-    <div className="flex justify-center lg:w-full min-h-[calc(100vh-80px)] bg-[#1D1D1D] text-white ">
-      <div className="flex items-center flex-col h-full pt-4 ">
-        <div className="flex justify-between px-5 items-center border border-[#ffd350]  bg-transparent rounded-lg py-3 w-72 md:w-96 mb-4">
+    <div className="flex justify-center lg:w-full h-[calc(100vh-80px)] bg-[#1D1D1D] text-white ">
+      <div className="flex items-center flex-col h-full pt-4">
+        <div className="flex justify-between px-5 items-center border border-[#ffd350] bg-transparent rounded-lg py-3 w-72 md:w-96 mb-4 shadow-md shadow-[#080808]">
           <FaHome
             className="w-6 h-6 cursor-pointer"
             onClick={() => setShowGame(false)}
           />
           <p className="font-semibold">
-            Score: <span className="text-yellow-300 font-light">{score}</span>
+            Score: <span className="text-yellow-300">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] px-2 border items-center rounded-lg min-h-32 w-72 md:w-96 max-h-[420px] md:max-h-[600px] overflow-y-scroll ">
+        <div className="flex flex-col mb-4 border-[#575757] shadow-md shadow-[#080808] px-2 border items-center min-h-32 w-72 md:w-96 max-h-[70%] overflow-y-scroll ">
           <ul className="py-5">
             {transferHistory.map((transfer, index) => (
               <li key={index} className="mb-5 ">
@@ -131,7 +130,7 @@ const Game = ({
                       alt={transfer.newClubName}
                       className="w-10 h-12  mr-2 "
                     />
-                    <span className="font-bold uppercase">
+                    <span className="font-semibold md:font-bold uppercase">
                       {transfer.newClubName}
                     </span>
                   </div>
@@ -142,10 +141,9 @@ const Game = ({
         </div>
         <form onSubmit={handleFormSubmit}>
           <div className="flex items-center relative w-72 md:w-96">
-            <label htmlFor=""></label>
             <FaSearch className="w-5 h-5 absolute ml-3 pointer-events-none" />
             <input
-              className="border border-[#575757] pl-10 bg-transparent rounded-lg py-3 w-full"
+              className="border border-[#575757] pl-10 bg-transparent rounded-lg py-3 w-full shadow-md shadow-[#080808]"
               type="text"
               placeholder="Guess the player..."
               onChange={handleInputChange}
@@ -173,7 +171,7 @@ const Game = ({
                     <img
                       src={player.nationImage}
                       alt="Nationality"
-                      className="w-3 h-3  mr-2"
+                      className="w-3 h-3 mr-2"
                     />
                   </div>
                 </div>
