@@ -83,13 +83,12 @@ const Home = () => {
       console.log(randomPlayer);
       setPlayerDetails({
         id: randomPlayer.id,
-        name: randomPlayer.firstName + " " + randomPlayer.lastName,
-        position: randomPlayer.position,
+        name: randomPlayer.name,
+        position: randomPlayer.positions.first,
         age: randomPlayer.age,
         shirtNumber: randomPlayer.shirtNumber,
         nationality: randomPlayer.nationality,
-        image: randomPlayer.playerImage,
-        team: randomPlayer.club,
+        image: randomPlayer.image,
       });
       const transfers = await getPlayerTransfers(randomPlayer.id);
       // const transfers = {

@@ -27,9 +27,6 @@ const Game = ({
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
-  const { id, name, position, age, shirtNumber, nationality, image, team } =
-    playerDetails;
-
   const correct = () => toast.success("Correct");
   const incorrect = () => toast.error("Incorrect");
 
@@ -76,7 +73,9 @@ const Game = ({
       setScore(score + 50);
       fetchRandomPlayerAndTransfers(competitionId);
     } else {
+      console.log(playerDetails);
       incorrect();
+      setShowModal(false);
       setGameOver(true);
     }
   };
