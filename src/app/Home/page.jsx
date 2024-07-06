@@ -49,12 +49,17 @@ const Home = () => {
 
     try {
       const teams = await getMostValuableTeams(competitionId);
-      const ids = teams.map((team) => team.id);
-      const randomClubId = ids[Math.floor(Math.random() * ids.length)];
 
-      const players = await getClubSquad(randomClubId);
+      // Get top 4 most valuable teams
+      const top4Teams = teams.slice(0, 5);
+
+      const randomTeam =
+        top4Teams[Math.floor(Math.random() * top4Teams.length)];
+
+      const players = await getClubSquad(randomTeam.id);
+
       const filteredPlayers = players.filter(
-        (player) => player.marketValue && player.marketValue.value > 20000000
+        (player) => player.marketValue && player.marketValue.value > 30000000
       );
 
       if (filteredPlayers.length === 0) {
@@ -89,6 +94,7 @@ const Home = () => {
         shirtNumber: randomPlayer.shirtNumber,
         nationality: randomPlayer.nationality,
         image: randomPlayer.image,
+        nationImage: randomPlayer.nationalities[0]?.image,
       });
       const transfers = await getPlayerTransfers(randomPlayer.id);
       // const transfers = {

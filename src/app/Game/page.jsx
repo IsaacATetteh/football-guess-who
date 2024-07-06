@@ -108,6 +108,7 @@ const Game = ({
         nationality: randomPlayer.nationality,
         image: randomPlayer.image,
         team: randomPlayer.club,
+        nationImage: randomPlayer.nationalities[0]?.image,
       });
       const transfers = await getPlayerTransfers(randomPlayer.id);
       transfers.transferHistory;
@@ -121,10 +122,16 @@ const Game = ({
   return (
     <div className="flex justify-center lg:w-full h-[calc(100vh-80px)] bg-[#1D1D1D] text-white ">
       <div className="flex items-center flex-col h-full pt-4">
-        <div className="flex justify-between px-5 items-center bg-transparent rounded-lg py-4 w-72 md:w-96 mb-4 shadow-md shadow-[#121212] bg-[#1f1f1f]">
+        <div className="flex justify-evenly gap-24 px-5 items-center bg-transparent rounded-lg py-4 w-72 md:w-96 mb-4 shadow-md shadow-[#121212] bg-[#1f1f1f]">
           <FaHome
             className="w-6 h-6 cursor-pointer"
             onClick={() => setShowGame(false)}
+          />
+
+          <img
+            src={playerDetails.nationImage}
+            alt={playerDetails.name}
+            className="object-cover px-1 mr-2"
           />
           <p className="font-semibold">
             Score: <span className="text-yellow-300">{score}</span>
