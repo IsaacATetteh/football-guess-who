@@ -80,6 +80,7 @@ const Game = ({
     if (player.id === playerDetails.id) {
       correct();
       setScore(score + 50);
+      setShowModal(false);
       fetchRandomPlayerAndTransfers(competitionId);
     } else {
       console.log(playerDetails);
