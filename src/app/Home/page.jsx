@@ -54,7 +54,7 @@ const Home = () => {
 
       const players = await getClubSquad(randomClubId);
       const filteredPlayers = players.filter(
-        (player) => player.marketValue && player.marketValue.value > 15000000
+        (player) => player.marketValue && player.marketValue.value > 20000000
       );
 
       if (filteredPlayers.length === 0) {

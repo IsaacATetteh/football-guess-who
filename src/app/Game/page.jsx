@@ -26,6 +26,7 @@ const Game = ({
   const [gameOver, setGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
+  const noPlayerFound = () => toast.error("No players found");
 
   const correct = () => toast.success("Correct");
   const incorrect = () => toast.error("Incorrect");
@@ -54,11 +55,19 @@ const Game = ({
       try {
         const response = await axios.request(options);
         console.log("API response:", response.data);
-        const players = response.data.data.players;
-        setSearchResults(players);
-        setShowModal(true);
+
+        if (response.data.data.players.length > 0) {
+          const players = response.data.data.players;
+          setSearchResults(players);
+          setShowModal(true);
+        } else {
+          setSearchResults([]);
+          noPlayerFound();
+          setShowModal(true);
+        }
       } catch (error) {
         console.error("API call error:", error);
+        noPlayerFound();
       }
     }
   };
@@ -91,12 +100,12 @@ const Game = ({
       console.log(randomPlayer);
       setPlayerDetails({
         id: randomPlayer.id,
-        name: randomPlayer.firstName + " " + randomPlayer.lastName,
+        name: randomPlayer.name,
         position: randomPlayer.position,
         age: randomPlayer.age,
         shirtNumber: randomPlayer.shirtNumber,
         nationality: randomPlayer.nationality,
-        image: randomPlayer.playerImage,
+        image: randomPlayer.image,
         team: randomPlayer.club,
       });
       const transfers = await getPlayerTransfers(randomPlayer.id);
