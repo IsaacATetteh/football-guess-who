@@ -4,6 +4,7 @@ import { FaHome } from "react-icons/fa";
 import axios from "axios";
 import Modal from "../components/Modal";
 import { FaSearch } from "react-icons/fa";
+import GameOver from "../components/GameOver";
 import { toast } from "react-toastify";
 import {
   getMostValuableTeams,
@@ -22,7 +23,7 @@ const Game = ({
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [score, setScore] = useState(0);
-
+  const [gameOver, setGameOver] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
 
@@ -31,6 +32,11 @@ const Game = ({
 
   const correct = () => toast.success("Correct");
   const incorrect = () => toast.error("Incorrect");
+
+  const handleGameOverClose = () => {
+    setGameOver(false);
+    setShowGame(false);
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -71,9 +77,8 @@ const Game = ({
       fetchRandomPlayerAndTransfers(competitionId);
     } else {
       incorrect();
-      setShowGame(false);
+      setGameOver(true);
     }
-    setShowModal(false);
   };
 
   const fetchRandomPlayerAndTransfers = async (competitionId) => {
@@ -107,7 +112,7 @@ const Game = ({
   return (
     <div className="flex justify-center lg:w-full h-[calc(100vh-80px)] bg-[#1D1D1D] text-white ">
       <div className="flex items-center flex-col h-full pt-4">
-        <div className="flex justify-between px-5 items-center border border-[#ffd350] bg-transparent rounded-lg py-3 w-72 md:w-96 mb-4 shadow-md shadow-[#080808]">
+        <div className="flex justify-between px-5 items-center bg-transparent rounded-lg py-4 w-72 md:w-96 mb-4 shadow-md shadow-[#121212] bg-[#1f1f1f]">
           <FaHome
             className="w-6 h-6 cursor-pointer"
             onClick={() => setShowGame(false)}
@@ -116,7 +121,7 @@ const Game = ({
             Score: <span className="text-yellow-300">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] shadow-md shadow-[#080808] px-2 border items-center min-h-32 w-72 md:w-96 max-h-[70%] overflow-y-scroll ">
+        <div className="flex flex-col mb-4 border-[#575757] shadow-md shadow-[#121212] bg-[#1f1f1f] px-2  items-center min-h-32 w-72 md:w-96 max-h-[70%] overflow-y-scroll ">
           <ul className="py-5">
             {transferHistory.map((transfer, index) => (
               <li key={index} className="mb-5 ">
@@ -143,7 +148,7 @@ const Game = ({
           <div className="flex items-center relative w-72 md:w-96">
             <FaSearch className="w-5 h-5 absolute ml-3 pointer-events-none" />
             <input
-              className="border border-[#575757] pl-10 bg-transparent rounded-lg py-3 w-full shadow-md shadow-[#080808]"
+              className="border border-[#3c3c3c] pl-10 bg-transparent rounded-lg py-3 w-full shadow-md shadow-[#1c1c1c] bg-[#1f1f1f]"
               type="text"
               placeholder="Guess the player..."
               onChange={handleInputChange}
@@ -182,6 +187,28 @@ const Game = ({
           <p>No results found</p>
         )}
       </Modal>
+      <GameOver
+        playerDetails={playerDetails}
+        isVisible={gameOver}
+        onClose={handleGameOverClose}
+      >
+        <div className="flex flex-col justify-center px-4 gap-4">
+          <h1 className="mt-6 text-4xl font-semibold">Game Over ❌</h1>
+          <p className="text-lg">
+            Thank you for playing! Your final score was:{" "}
+            <span className="font-bold">{score}</span>
+          </p>
+          <p className="text-lg">The correct player was:</p>
+          <div className="flex items-center text-lg font-bold">
+            <img
+              src={playerDetails.image}
+              alt={playerDetails.name}
+              className="w-20 h-20 object-cover px-1 mr-2"
+            />
+            <p>{playerDetails.name}</p>
+          </div>
+        </div>
+      </GameOver>
     </div>
   );
 };
