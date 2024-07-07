@@ -27,6 +27,8 @@ const Game = ({
   const [searchResults, setSearchResults] = useState([]);
   const NEXT_PUBLIC_RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY;
   const noPlayerFound = () => toast.error("No players found");
+  const [loading, setLoading] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   const correct = () => toast.success("Correct");
   const incorrect = () => toast.error("Incorrect");
@@ -38,6 +40,7 @@ const Game = ({
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setSearching(true);
     if (searchQuery.length > 0) {
       const options = {
         method: "GET",
@@ -69,6 +72,7 @@ const Game = ({
         console.error("API call error:", error);
         noPlayerFound();
       }
+      setSearching(false);
     }
   };
 
@@ -91,6 +95,7 @@ const Game = ({
   };
 
   const fetchRandomPlayerAndTransfers = async (competitionId) => {
+    setLoading(true);
     try {
       const teams = await getMostValuableTeams(competitionId);
 
@@ -134,6 +139,7 @@ const Game = ({
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -157,32 +163,80 @@ const Game = ({
             Score: <span className="text-yellow-300">{score}</span>
           </p>
         </div>
-        <div className="flex flex-col mb-4 border-[#575757] shadow-md shadow-[#121212] bg-[#1f1f1f] px-2  items-center min-h-32 w-72 md:w-96 max-h-[70%] overflow-y-scroll ">
-          <ul className="py-5">
-            {transferHistory.map((transfer, index) => (
-              <li key={index} className="mb-5 ">
-                <div className="flex items-center mb-1 gap-2">
-                  <div className="text-sm text-gray-400 w-10">
-                    <span>{transfer.date.slice(-4)}</span>
+        <div className="flex flex-col mb-4 border-[#575757] shadow-md shadow-[#121212] bg-[#1f1f1f] px-2 items-center min-h-32 w-72 md:w-96 max-h-[70%] overflow-y-scroll">
+          {loading ? (
+            <div className="flex justify-center items-center h-full w-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </div>
+          ) : (
+            <ul className="py-5">
+              {transferHistory.map((transfer, index) => (
+                <li key={index} className="mb-5">
+                  <div className="flex items-center mb-1 gap-2">
+                    <div className="text-sm text-gray-400 w-10">
+                      <span>{transfer.date.slice(-4)}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <img
+                        src={transfer.newClubImage}
+                        alt={transfer.newClubName}
+                        className="w-10 h-12 mr-2"
+                      />
+                      <span className="font-semibold md:font-bold uppercase">
+                        {transfer.newClubName}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <img
-                      src={transfer.newClubImage}
-                      alt={transfer.newClubName}
-                      className="w-10 h-12  mr-2 "
-                    />
-                    <span className="font-semibold md:font-bold uppercase">
-                      {transfer.newClubName}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
+
         <form onSubmit={handleFormSubmit}>
           <div className="flex items-center relative w-72 md:w-96">
-            <FaSearch className="w-5 h-5 absolute ml-3 pointer-events-none" />
+            {searching ? (
+              <svg
+                className="animate-spin w-5 h-5 absolute ml-3 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            ) : (
+              <FaSearch className="w-5 h-5 absolute ml-3 pointer-events-none" />
+            )}
             <input
               className="border border-[#3c3c3c] pl-10 bg-transparent rounded-lg py-3 w-full shadow-md shadow-[#1c1c1c] bg-[#1f1f1f]"
               type="text"

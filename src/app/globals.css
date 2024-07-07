@@ -62,5 +62,32 @@ input {
   bottom: 20px; /* End position (visible) */
 }
 
+@keyframes slow-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15%);
+  }
+}
+
+.animate-slow-bounce {
+  animation: slow-bounce 1s infinite;
+}
+
+@keyframes spin-custom {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+  .animate-spin {
+    animation: spin-custom 15s linear infinite; 
+  }
+  
+
 
 

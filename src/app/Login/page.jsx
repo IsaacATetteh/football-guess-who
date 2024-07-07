@@ -83,18 +83,46 @@ function Login() {
             <div class="flex-grow border-t border-[#575757]"></div>
           </div>
           <button
-            className="flex py-3 border-2 text-white rounded-lg border-[#2B2B2B] justify-center"
+            className="flex py-3 border-2 text-white rounded-lg border-[#2B2B2B] justify-center items-center"
             disabled={isSigningIn}
             onClick={(e) => {
               onGoogleSignIn(e);
             }}
           >
-            <img
-              src="/google-icon.png"
-              alt="Google logo"
-              class="w-6 h-6 mr-3"
-            />
-            {isSigningIn ? "Signing In..." : "Sign In"}
+            {isSigningIn ? (
+              <>
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Signing In...
+              </>
+            ) : (
+              <>
+                <img
+                  src="/google-icon.png"
+                  alt="Google logo"
+                  className="w-6 h-6 mr-3"
+                />
+                Sign In
+              </>
+            )}
           </button>
         </div>
       </div>
