@@ -95,10 +95,10 @@ const Game = ({
       const teams = await getMostValuableTeams(competitionId);
 
       // Get top 5 most valuable teams
-      const top5Teams = teams.slice(0, 5);
+      const top7Teams = teams.slice(0, 7);
 
       const randomTeam =
-        top5Teams[Math.floor(Math.random() * top5Teams.length)];
+        top7Teams[Math.floor(Math.random() * top7Teams.length)];
 
       const players = await getClubSquad(randomTeam.id);
 
