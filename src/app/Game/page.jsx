@@ -93,11 +93,28 @@ const Game = ({
   const fetchRandomPlayerAndTransfers = async (competitionId) => {
     try {
       const teams = await getMostValuableTeams(competitionId);
-      const ids = teams.map((team) => team.id);
-      const randomClubId = ids[Math.floor(Math.random() * ids.length)];
 
-      const players = await getClubSquad(randomClubId);
-      const randomPlayer = players[Math.floor(Math.random() * players.length)];
+      // Get top 5 most valuable teams
+      const top5Teams = teams.slice(0, 5);
+
+      const randomTeam =
+        top5Teams[Math.floor(Math.random() * top5Teams.length)];
+
+      const players = await getClubSquad(randomTeam.id);
+
+      const filteredPlayers = players.filter(
+        (player) => player.marketValue && player.marketValue.value > 25000000
+      );
+
+      if (filteredPlayers.length === 0) {
+        console.log("No players found, please try again.");
+        setPlayButtonClicked(false);
+        return;
+      }
+
+      const randomPlayer =
+        filteredPlayers[Math.floor(Math.random() * filteredPlayers.length)];
+
       console.log(randomPlayer);
       setPlayerDetails({
         id: randomPlayer.id,
@@ -122,17 +139,20 @@ const Game = ({
   return (
     <div className="flex justify-center lg:w-full h-[calc(100vh-80px)] bg-[#1D1D1D] text-white ">
       <div className="flex items-center flex-col h-full pt-4">
-        <div className="flex justify-evenly gap-24 px-5 items-center bg-transparent rounded-lg py-4 w-72 md:w-96 mb-4 shadow-md shadow-[#121212] bg-[#1f1f1f]">
+        <div className="flex flex-row gap-10 md:gap-20 justify-center items-center bg-transparent rounded-lg py-3 w-72 md:w-96 mb-4 shadow-md shadow-[#121212] bg-[#1f1f1f]">
           <FaHome
             className="w-6 h-6 cursor-pointer"
             onClick={() => setShowGame(false)}
           />
+          <div className="flex justify-center gap-2 items-center w-20">
+            <img
+              src={playerDetails.nationImage}
+              alt={playerDetails.name}
+              className=" h-3 object-cover"
+            />{" "}
+            <strong>Player</strong>
+          </div>
 
-          <img
-            src={playerDetails.nationImage}
-            alt={playerDetails.name}
-            className="object-cover px-1 mr-2"
-          />
           <p className="font-semibold">
             Score: <span className="text-yellow-300">{score}</span>
           </p>

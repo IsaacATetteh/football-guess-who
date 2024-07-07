@@ -50,11 +50,11 @@ const Home = () => {
     try {
       const teams = await getMostValuableTeams(competitionId);
 
-      // Get top 4 most valuable teams
-      const top4Teams = teams.slice(0, 5);
+      // Get top 5 most valuable teams
+      const top5Teams = teams.slice(0, 5);
 
       const randomTeam =
-        top4Teams[Math.floor(Math.random() * top4Teams.length)];
+        top5Teams[Math.floor(Math.random() * top5Teams.length)];
 
       const players = await getClubSquad(randomTeam.id);
 

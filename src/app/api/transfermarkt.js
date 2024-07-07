@@ -32,7 +32,7 @@ const getClubSquad = async (clubId) => {
     method: "GET",
     url: `https://transfermarkt-db.p.rapidapi.com/v1/clubs/squad`,
     params: {
-      season_id: "2024",
+      season_id: "2023",
       locale: "DE",
       club_id: clubId,
     },
