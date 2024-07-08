@@ -167,6 +167,7 @@ const Game = ({
           {loading ? (
             <div className="flex justify-center items-center h-full w-full">
               <svg
+                className="animate-spin h-10 w-10 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

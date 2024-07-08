@@ -156,7 +156,7 @@ const Home = () => {
         />
       ) : (
         <div className="flex flex-col items-center mb-2">
-          <img className="h-72 lg:h-80 animate-spin " src="/logo.png"></img>
+          <img className="slow-spin h-72 lg:h-80" src="/logo.png"></img>
           <form
             className="flex flex-col gap-4 mt-3 lg:mt-6"
             onSubmit={handlePlayButtonClick}
@@ -195,7 +195,7 @@ const Home = () => {
             >
               {playButtonClicked ? (
                 <svg
-                  className="spin-slow h-5 w-5 text-black mx-auto"
+                  className="animate-spin h-5 w-5 text-black mx-auto"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

@@ -84,7 +84,7 @@ input {
   }
 }
 
-  .animate-spin {
+  .slow-spin {
     animation: spin-custom 15s linear infinite; 
   }
   
