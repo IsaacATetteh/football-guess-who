@@ -68,7 +68,7 @@ function Login() {
           />
           <Link
             href="/Signup"
-            className="underline text-right text-sm text-[#575757]"
+            className="underline text-right text-sm text-blue-400 hover:text-blue-300"
           >
             {`Don't have an account?`}
           </Link>

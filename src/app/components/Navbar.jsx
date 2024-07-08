@@ -21,7 +21,7 @@ const Navbar = () => {
         <MdLeaderboard className="cursor-pointer h-8 w-8" />
         <button
           onClick={handleSignOut}
-          className="py-2 px-3 text-white rounded-lg border-2 border-white"
+          className="py-2 px-3 font-bold text-black transform transition duration-75 ease-in-out  active:translate-y-1 bg-[#E9E3DA] hover:bg-white rounded-lg"
         >
           Logout
         </button>

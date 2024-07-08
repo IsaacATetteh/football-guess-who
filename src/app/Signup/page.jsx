@@ -42,7 +42,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-80px)] h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
+    <div className="flex min-h-[calc(100vh-80px)] justify-center items-center lg:w-full py-20 bg-[#1D1D1D] text-white ">
       <div className="flex h-[28rem] items-center flex-col">
         <h1 className=" font-extrabold text-5xl">Sign Up</h1>
         <form
@@ -88,7 +88,7 @@ const Signup = () => {
           />
           <Link
             href="/Login"
-            className="underline text-right text-sm text-[#575757]"
+            className="underline text-right text-blue-400 hover:text-blue-300 text-sm"
           >
             Already have an account?
           </Link>
