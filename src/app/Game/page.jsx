@@ -85,6 +85,7 @@ const Game = ({
       correct();
       setScore(score + 50);
       setShowModal(false);
+      setSearchQuery("");
       fetchRandomPlayerAndTransfers(competitionId);
     } else {
       console.log(playerDetails);
