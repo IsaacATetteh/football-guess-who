@@ -69,7 +69,7 @@ const Home = () => {
 
       const players = await getClubSquad(randomTeam.id);
 
-      const minValue = difficulty === "Hard" ? 10000000 : 1000000;
+      const minValue = difficulty === "Hard" ? 10000000 : 25000000;
       const filteredPlayers = players.filter(
         (player) => player.marketValue && player.marketValue.value > minValue
       );
