@@ -19,6 +19,7 @@ const Game = ({
   setPlayerDetails,
   setTransferHistory,
   competitionId,
+  difficulty,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -100,16 +101,23 @@ const Game = ({
     try {
       const teams = await getMostValuableTeams(competitionId);
 
-      // Get top 5 most valuable teams
-      const top7Teams = teams.slice(0, 7);
+      let topTeams;
+      if (difficulty === "Easy") {
+        topTeams = teams.slice(0, 4);
+      } else if (difficulty === "Regular") {
+        topTeams = teams.slice(0, 8);
+      } else if (difficulty === "Hard") {
+        topTeams = teams.slice(0, 15);
+      }
 
-      const randomTeam =
-        top7Teams[Math.floor(Math.random() * top7Teams.length)];
+      const randomTeam = topTeams[Math.floor(Math.random() * topTeams.length)];
 
       const players = await getClubSquad(randomTeam.id);
 
+      const minValue = difficulty === "Hard" ? 10000000 : 1000000;
+
       const filteredPlayers = players.filter(
-        (player) => player.marketValue && player.marketValue.value > 25000000
+        (player) => player.marketValue && player.marketValue.value > minValue
       );
 
       if (filteredPlayers.length === 0) {

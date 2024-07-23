@@ -20,10 +20,15 @@ const Home = () => {
   const [competitionId, setCompetitionId] = useState(""); // State to store competition ID
   const [transferHistory, setTransferHistory] = useState(null);
   const { userLoggedIn, currentUser } = useAuth();
+  const [difficulty, setDifficulty] = useState("Regular");
 
   if (!userLoggedIn) {
     redirect("/Login");
   }
+
+  const handleDifficultyChange = (event) => {
+    setDifficulty(event.target.value);
+  };
 
   const handleLeagueChange = (event) => {
     setLeague(event.target.value);
@@ -50,16 +55,23 @@ const Home = () => {
     try {
       const teams = await getMostValuableTeams(competitionId);
 
-      // Get top 5 most valuable teams
-      const top7Teams = teams.slice(0, 7);
+      let topTeams;
+      if (difficulty === "Easy") {
+        topTeams = teams.slice(0, 4);
+      } else if (difficulty === "Regular") {
+        topTeams = teams.slice(0, 8);
+      } else if (difficulty === "Hard") {
+        topTeams = teams.slice(0, 15);
+      }
 
-      const randomTeam =
-        top7Teams[Math.floor(Math.random() * top7Teams.length)];
+      // Get top 5 most valuable teams
+      const randomTeam = topTeams[Math.floor(Math.random() * topTeams.length)];
 
       const players = await getClubSquad(randomTeam.id);
 
+      const minValue = difficulty === "Hard" ? 10000000 : 1000000;
       const filteredPlayers = players.filter(
-        (player) => player.marketValue && player.marketValue.value > 30000000
+        (player) => player.marketValue && player.marketValue.value > minValue
       );
 
       if (filteredPlayers.length === 0) {
@@ -153,6 +165,7 @@ const Home = () => {
           setPlayerDetails={setPlayerDetails}
           setTransferHistory={setTransferHistory}
           competitionId={competitionId}
+          difficulty={difficulty}
         />
       ) : (
         <div className="flex flex-col items-center mb-2">
@@ -162,13 +175,17 @@ const Home = () => {
             onSubmit={handlePlayButtonClick}
           >
             <label htmlFor="difficulty" className="font-semibold text-lg">
-              Select A Difficulty: (coming soon!)
+              Select A Difficulty: (OUT NOW!)
             </label>
             <select
               className="bg-[#1D1D1D] border border-[#727272] rounded-lg min-h-10 py-3 w-80 px-2"
               id="difficulty"
+              value={difficulty} // Binding the value to the state
+              onChange={handleDifficultyChange} // Handling change event
             >
-              <option value="">Regular</option>
+              <option value="Easy">Easy</option>
+              <option value="Regular">Regular</option>
+              <option value="Hard">Hard</option>
             </select>
             <label htmlFor="league" className="font-semibold text-lg">
               Select League:
